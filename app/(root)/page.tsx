@@ -1,9 +1,25 @@
+"use client"
+
 import Head from 'next/head';
 import Image from 'next/image';
-import React from 'react';
 import Link from 'next/link';
+import React, { useEffect } from 'react';
+import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+
+  const {isSignedIn} = useUser();
+  const router = useRouter();
+
+  useEffect(()=>{
+    if(isSignedIn){
+      router.push('/user');
+    }
+    // } else {
+    //   router.push('/sign-in')
+    // }
+  },[isSignedIn, router]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-cream-light">
@@ -52,9 +68,6 @@ export default function Home() {
               <Link href="/sign-in" className="mb-2 w-full rounded-lg bg-[#f4a692] hover:bg-[#db9583] px-6 py-3 font-bold text-black text-center focus:outline-none">
                 Sign In
               </Link>
-              {/* <button  className="mb-2 w-full rounded-lg bg-[#f4a692] hover:bg-[#db9583] px-6 py-3 font-bold text-black focus:outline-none">
-                Register
-              </button> */}
                <Link href="/sign-up" className="mb-2 w-full rounded-lg bg-[#f4a692] hover:bg-[#db9583] px-6 py-3 font-bold text-black text-center focus:outline-none">
                 Register
               </Link>
@@ -63,5 +76,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  );
+  );  
 }

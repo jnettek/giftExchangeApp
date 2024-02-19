@@ -17,6 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className={inter.className}>
         {/* <div className="w-full max-w-4xl"> */}
@@ -24,5 +25,6 @@ export default function RootLayout({
         {/* </div> */}
         </body>
     </html>
+    </ClerkProvider>
   );
 }
