@@ -26,6 +26,7 @@ const exchangePage = () => {
       eventDate: new Date(),
       budget: "",
       invitationMessage: "",
+      participants: [],
     },
   })
 
