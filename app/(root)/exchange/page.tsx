@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import * as z from "zod";
 import { userSchema } from "@/lib/validations/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input"
 import { UserButton } from "@clerk/clerk-react";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,8 +31,9 @@ const exchangePage = () => {
   })
 
 
-  const onSubmit = async (values: z.infer<typeof userSchema>) => {
+  const onSubmit = (values: z.infer<typeof userSchema>) => {
     console.log(values);
+    console.log("Form submitted successfully");
   }
 
 
@@ -61,6 +62,7 @@ const exchangePage = () => {
                    
                   <Form {...form}> 
                   <form onSubmit={form.handleSubmit(onSubmit)}>
+
                
                   <FormField //// EVENT NAME
                     name="eventName"
@@ -80,7 +82,7 @@ const exchangePage = () => {
                   /> 
 
                   
-                    <FormField // DATE OF GIFT EXCHANGE
+                    {/* <FormField
                       name="eventDate"
                       control={form.control}
                       render={({ field }) => (
@@ -89,17 +91,22 @@ const exchangePage = () => {
                             Date of Gift Exchange
                           </FormLabel>
                           <FormControl>
-                            <DatePicker 
-                              // {...field}
-                              // selected={field.value} // Assuming your DatePicker accepts a 'selected' prop for the current value
-                              // onChange={(date) => field.onChange(date)} // Ensuring onChange from DatePicker updates the form
-                              // dateFormat="MMMM d, yyyy" // Customize the date format as needed
-                              // placeholderText="Select date"
+                            <Controller
+                              control={form.control}
+                              name="eventDate"
+                              render={({ field: { onChange, value } }) => (
+                                <DatePicker 
+                                  selected={value}
+                                  onChange={onChange}
+                                  // Add more props as needed
+                                />
+                              )}
                             />
                           </FormControl>
                         </FormItem>
                       )}
-                    />
+                    /> */}
+
 
                     <FormField // BUDGET
                       name="budget"
@@ -135,11 +142,6 @@ const exchangePage = () => {
                       </FormItem>
                     )}
                     />
-                  </form>
-                    </Form> 
-                  
-
-                  </div>
                   <Button
                       type="submit"
                       className="p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12"
@@ -148,6 +150,18 @@ const exchangePage = () => {
                       >
                       CONTINUE
                     </Button>
+                    {/* <button
+                      type="submit"
+                      className="p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12"
+                      />  */}
+                  <button onClick={() => {
+                    onSubmit('values').catch(error => console.error(error));
+                  }}>Click me</button>
+                  </form>
+                    </Form> 
+
+
+                  </div>
 
                     <div className="self-end w-full text-right">
                         <Link href="/user">
