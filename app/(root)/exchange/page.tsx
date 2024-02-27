@@ -1,40 +1,44 @@
 "use client"
 import React from "react";
-import Introduction from "@/app/components/Introduction";
-import DatePicker from "@/app/components/DatePicker";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import * as z from "zod";
+import Introduction from "@/app/components/Introduction";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { userSchema } from "@/lib/validations/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input"
 import { UserButton } from "@clerk/clerk-react";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
-
-
+import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
+import { CalendarIcon } from "lucide-react";
+import { PopoverContent } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from 'date-fns';
 
 
 
 const exchangePage = () => {
 
+  
+
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       eventName: "",
-      eventDate: new Date(),
       budget: "",
+      eventDate: undefined,
       invitationMessage: "",
-      participants: [],
+      // participants: [],
     },
   })
 
 
-  const onSubmit = (values: z.infer<typeof userSchema>) => {
-    console.log(values);
-    console.log("Form submitted successfully");
-  }
+  const handleSubmit = (values: z.infer<typeof userSchema>) => {
+    console.log({values});
+
+  };
 
 
 
@@ -58,73 +62,80 @@ const exchangePage = () => {
                   </div>
 
                  <div className="self-start text-left w-full p-4">
-                   
-                   
-                  <Form {...form}> 
-                  <form onSubmit={form.handleSubmit(onSubmit)}>
+                   <Form {...form}>
+                    <form onSubmit={form.handleSubmit(handleSubmit)}>
 
-               
-                  <FormField //// EVENT NAME
-                    name="eventName"
+                    <FormField
                     control={form.control}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm">
-                          Event Name
-                          </FormLabel>
+                    name="eventName"
+                    render={({ field }) => {
+                      return <FormItem>
+                        <FormLabel className="text-sm">Event Name</FormLabel>
                         <FormControl>
-                      <Input 
-                      type="text"
-                      {...field} placeholder="Event Name" />
-                      </FormControl>
+                          <Input 
+                          placeholder="Enter event name"
+                          type="text"
+                          {...field} />
+                        </FormControl>
+                        <FormMessage/>
                       </FormItem>
-                    )}
-                  /> 
+                    }}
+                    />
+                       
+                         
+            <FormField
+            control={form.control}
+            name="eventDate"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <FormItem>
+                <FormLabel>Date of Event</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant={"outline"} className="w-full justify-start text-left font-normal">
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {value ? format(value, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={value}
+                      onSelect={(date) => {
+                        onChange(date);
+                        // Ensure the date is properly set in your form state
+                      }}
+                      disabled={(date) => {
+                        //Ensure disable past day
+                        const currentDate = new Date();
+                        const startOfToday = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+                        return date < startOfToday;
+                      }
+                     }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                {error && <FormMessage>{error.message}</FormMessage>}
+              </FormItem>
+            )}
+          />
 
-                  
-                    {/* <FormField
-                      name="eventDate"
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm">
-                            Date of Gift Exchange
-                          </FormLabel>
-                          <FormControl>
-                            <Controller
-                              control={form.control}
-                              name="eventDate"
-                              render={({ field: { onChange, value } }) => (
-                                <DatePicker 
-                                  selected={value}
-                                  onChange={onChange}
-                                  // Add more props as needed
-                                />
-                              )}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    /> */}
-
-
-                    <FormField // BUDGET
-                      name="budget"
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm">
-                            Budget
-                          </FormLabel>
-                          <FormControl>
-                            <Input 
-                              type="number"
-                              {...field}
-                              placeholder="Budget" />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                        />
+                     <FormField
+                    control={form.control}
+                    name="budget"
+                    render={({ field }) => {
+                      return <FormItem>
+                        <FormLabel className="text-sm">Budget</FormLabel>
+                        <FormControl>
+                          <Input 
+                          placeholder="Amount"
+                          type="text"
+                          {...field} />
+                        </FormControl>
+                        <FormMessage/>
+                      </FormItem>
+                    }}
+                    /> 
 
                     <FormField // INVITATION MESSAGE 
                     name="invitationMessage"
@@ -142,6 +153,7 @@ const exchangePage = () => {
                       </FormItem>
                     )}
                     />
+
                   <Button
                       type="submit"
                       className="p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12"
@@ -150,13 +162,6 @@ const exchangePage = () => {
                       >
                       CONTINUE
                     </Button>
-                    {/* <button
-                      type="submit"
-                      className="p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12"
-                      />  */}
-                  <button onClick={() => {
-                    onSubmit('values').catch(error => console.error(error));
-                  }}>Click me</button>
                   </form>
                     </Form> 
 
@@ -165,7 +170,7 @@ const exchangePage = () => {
 
                     <div className="self-end w-full text-right">
                         <Link href="/user">
-                          <p className="text-sm">← Back</p> {/* Adjust text size and other styles as needed */}
+                          <div className="text-sm">← Back</div> {/* Adjust text size and other styles as needed */}
                         </Link>
                       </div>
                       
