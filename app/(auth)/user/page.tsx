@@ -2,7 +2,7 @@ import { UserButton } from "@clerk/nextjs";
 import React from 'react';
 import Link from "next/link";
 import { HeartIcon, ShoppingBagIcon, GiftIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
-import Introduction from "@/app/components/Introduction";
+import Introduction from "@/components/Introduction";
 
 
 const UserPage: React.FC = () => {

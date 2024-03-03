@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import * as z from "zod";
-import Introduction from "@/app/components/Introduction";
+import Introduction from "@/components/Introduction";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { userSchema } from "@/lib/validations/user";
