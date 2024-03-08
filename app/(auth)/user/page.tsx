@@ -44,7 +44,7 @@ const UserPage: React.FC = () => {
                   <Link href="/shopping" className="flex items-center justify-between p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12">
                     <div className="flex items-end flex-grow">
                       <ShoppingBagIcon className="w-6 h-6 mr-2" />
-                        Shopping
+                        Shop
                       </div>
                      <span>→</span>
                   </Link>
