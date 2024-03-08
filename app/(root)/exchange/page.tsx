@@ -16,6 +16,8 @@ import { PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from 'date-fns';
 import Link from "next/link";
+import { createUser } from "@/lib/actions/user.action";
+import { useRouter } from "next/navigation";
 
 const steps = [
   {
@@ -31,6 +33,8 @@ const steps = [
 ]
 
 const exchangePage = () => {
+
+  const router = useRouter();
 
   const [previousStep, setPreviousStep] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
@@ -54,10 +58,18 @@ const exchangePage = () => {
     name: "participants",
   });
 
-
-
-  const handleSubmit = (values: z.infer<typeof userSchema>) => {
+  const handleSubmit = async (values: z.infer<typeof userSchema>) => {
     console.log({values});
+
+    await createUser({
+      eventName: values.eventName,
+      budget: values.budget,
+      eventDate: values.eventDate,
+      invitationMessage: values.invitationMessage,
+      participants: values.participants
+    });
+
+   router.push('/shopping');
   };
 
 
@@ -266,8 +278,9 @@ const exchangePage = () => {
                       Pervious
                     </Button>
                     <Button
-                      type="submit"
-                      onClick={currentStep < steps.length - 1 ? next : () => form.handleSubmit(handleSubmit)()}
+                      type={currentStep < steps.length -1 ? "button" : "submit"}
+                      // onClick={currentStep < steps.length - 1 ? next : () => form.handleSubmit(handleSubmit)()}
+                      onClick={currentStep < steps.length - 1 ? next : undefined}
                       className="p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12"
                       variant="default" // or any other variant you see fit
                       size="sm" // or "sm", "lg", etc., according to your needs
