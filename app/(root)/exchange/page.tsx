@@ -69,7 +69,7 @@ const exchangePage = () => {
       participants: values.participants
     });
 
-   router.push('/shopping');
+   router.push('/event');
   };
 
 
