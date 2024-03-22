@@ -25,17 +25,16 @@ return (
                     <div className="mt-6 flex w-full max-w-4xl flex-wrap items-stretch justify-around sm:w-full">
                     <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-[#fff7e1]">   
                     <div className="flex p-2 mr-4 mt-2 mb-6 text-black">
-                        <h1 className="text-black text-2xl">Events</h1>
+                        <h1 className="text-black text-2xl">Up Coming Events</h1>
                             </div>
                 
                 <div className='pt-2'>        
                     {userEvent?.length === 0 ? (
-                        <p className='no-result'>No Events found</p>
+                        <p className='no-result'>No events found - Let's get started!</p>
                         ) : (
                             userEvent?.map((detail) => (
                                 <div key={detail._id} className='w-full border p-2 rounded-lg shadow-md bg-white mb-2'>
                                 <h2 className="text-black text-xl text-left">{detail.eventName}</h2>
-                               
 
                                 <Link href={`/event/${detail._id}`}
                                     className="text-black hover:text-blue-800 text-sm">View Details

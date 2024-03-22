@@ -28,8 +28,13 @@ const page = async ({ params }: { params: { id: string } }) => {
          <div className="self-start text-left w-full p-4 bg-white rounded-lg">
          <p className="text-sm font-light text-left pb-4"> Your mystery pair awaits—hover to unveil! But shh, let's keep the surprises under wraps for everyone else. 🙈</p>
         
-    <EventMatch matches={matches} />
-</div>
+          {/* <EventMatch matches={matches} /> */}
+          {matches?.length === 0 ? (
+            <p className='no-result'>Hmmm.... Let's try again</p>
+          ) : (
+            <EventMatch matches={matches} />
+          )}
+          </div>
 
             <div className="self-end w-full text-right pt-6">
                   <Link href="/create-event">
