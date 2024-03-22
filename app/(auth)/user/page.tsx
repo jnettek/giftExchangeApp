@@ -31,7 +31,15 @@ const UserPage: React.FC = () => {
                 Start Gift Exchange
                 </div>
                  <span>→</span>
-              </Link>          
+              </Link>       
+
+                <Link href="/create-event" className="flex items-center justify-between p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12">
+                    <div className="flex items-end flex-grow">
+                      <ShoppingBagIcon className="w-6 h-6 mr-2" />
+                        Events
+                      </div>
+                     <span>→</span>
+                  </Link>   
 
                   <Link href="/wishlist" className="flex items-center justify-between p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12">
                     <div className="flex items-end flex-grow">
@@ -41,15 +49,9 @@ const UserPage: React.FC = () => {
                       <span>→</span>
                   </Link>
 
-                  <Link href="/shopping" className="flex items-center justify-between p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12">
-                    <div className="flex items-end flex-grow">
-                      <ShoppingBagIcon className="w-6 h-6 mr-2" />
-                        Shop
-                      </div>
-                     <span>→</span>
-                  </Link>
+                
 
-                  <Link href="/" className="flex items-center justify-between p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12">
+                  <Link href="/request" className="flex items-center justify-between p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12">
                       <div className="flex items-center flex-grow">
                       <EnvelopeOpenIcon className="w-6 h-6 mr-2" />
                       Request a WishList

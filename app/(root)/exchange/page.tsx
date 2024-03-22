@@ -8,7 +8,7 @@ import { userSchema } from "@/lib/validations/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Input } from "@/components/ui/input"
-import { UserButton } from "@clerk/clerk-react";
+import { UserButton } from "@clerk/nextjs";
 import { Textarea } from "@/components/ui/textarea";
 import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
 import { CalendarIcon} from "lucide-react";
@@ -69,7 +69,7 @@ const exchangePage = () => {
       participants: values.participants
     });
 
-   router.push('/event');
+   router.push('/create-event');
   };
 
 
