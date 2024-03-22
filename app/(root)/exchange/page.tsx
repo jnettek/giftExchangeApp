@@ -63,7 +63,7 @@ const exchangePage = () => {
 
     await createUser({
       eventName: values.eventName,
-      budget: values.budget,
+      budget: Number(values.budget),
       eventDate: values.eventDate,
       invitationMessage: values.invitationMessage,
       participants: values.participants
@@ -76,7 +76,7 @@ const exchangePage = () => {
 
   const next = async () => {
     const fields = steps[currentStep].fields
-    const output = await form.trigger(fields, { shouldFocus: true })
+    const output = await form.trigger(fields as Array<keyof z.infer<typeof userSchema>>, { shouldFocus: true })
   
 
     if (!output) return

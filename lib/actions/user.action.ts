@@ -1,10 +1,11 @@
 "use server"
 
+import { Match } from "@/components/EventDetail";
 import User from "../models/user.model";
 import { connectToDB } from "../validations/mongoose";
 
 interface UserData {
-  // _id?: mongoose.Schema.Types.ObjectId,
+  _id?: string;
   eventName: string;
   budget: number; // Assuming budget is a numerical value
   eventDate: Date; // or string if you are using ISO date strings
@@ -13,9 +14,13 @@ interface UserData {
 }
 
 interface Participant {
+  _id?: string;
   name: string;
   email: string;
 }
+
+
+
 
 export async function createUser(userData: UserData): Promise<void> {
   await connectToDB();
@@ -65,7 +70,10 @@ export async function fetchEventById(id: string) {
 
 ///// shuffle function
 
-function shuffle(array) {
+
+//shuffle becomes a generic function that can shuffle arrays of any type, and the type of array will be the same as the items it contains.
+
+function shuffle<T>(array: T[]): T[] {
   let currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
@@ -83,14 +91,18 @@ function shuffle(array) {
   return array;
 }
 
-function drawParticipantsFunction(participants) {
+function drawParticipantsFunction(participants: Participant[]): Match[] {
   let shuffled = shuffle(participants);
 
   // Map through shuffled array to create matches using participant _id
-  let matches = shuffled.map((participant, index) => ({
+  let matches: Match[] = shuffled.map((participant, index) => ({
+    params: {
+      id: participant._id || 'fallback-id', // Assuming each participant has a unique '_id'
+    },
     giver: participant.name,
     receiver: shuffled[(index + 1) % shuffled.length].name, // Wrap around to the first at the end
   }));
+
 
   return matches;
 }
@@ -98,7 +110,7 @@ function drawParticipantsFunction(participants) {
 
 // Assuming connectToDB, User model, shuffle, and drawParticipantsFunction are properly imported
 
-export async function drawParticipants(eventId) {
+export async function drawParticipants(eventId: string) {
   await connectToDB(); // Ensure database connection
 
   let eventDetails;

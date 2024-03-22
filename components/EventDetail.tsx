@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface Match {
+export interface Match {
   params: {
-    id: string;
+    id?: string;
   };
-  giver: string;
-  receiver: string;
+  giver: any;
+  receiver: any;
 }
 
 interface Props {
