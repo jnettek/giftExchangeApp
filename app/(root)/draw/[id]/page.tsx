@@ -7,6 +7,7 @@ import Link from "next/link";
 const page = async ({ params }: { params: { id: string } }) => {
     if (!params) return null;
     const matches = await drawParticipants(params.id);
+    
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-cream-light">       

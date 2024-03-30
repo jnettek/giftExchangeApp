@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+    userId: { type: String, required: true },
     eventName: { type: String, required: true },
     budget: { type: Number, required: true }, // Adjust type as necessary
     eventDate: { type: Date }, // Optional based on your requirements

@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as z from "zod";
 import Introduction from "@/components/Introduction";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -8,7 +8,7 @@ import { userSchema } from "@/lib/validations/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Input } from "@/components/ui/input"
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { Textarea } from "@/components/ui/textarea";
 import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
 import { CalendarIcon} from "lucide-react";
@@ -18,6 +18,7 @@ import { format } from 'date-fns';
 import Link from "next/link";
 import { createUser } from "@/lib/actions/user.action";
 import { useRouter } from "next/navigation";
+import { set } from "mongoose";
 
 const steps = [
   {
@@ -34,17 +35,20 @@ const steps = [
 
 const exchangePage = () => {
 
+  const {user} = useUser();
+  const [loaded, setLoaded] = useState(false);
   const router = useRouter();
-
   const [previousStep, setPreviousStep] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
 
-  
+
+
 
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     mode: 'onSubmit',
     defaultValues: {
+      userId: user ? user.id : "",
       eventName: "",
       budget: "",
       eventDate: undefined,
@@ -58,20 +62,65 @@ const exchangePage = () => {
     name: "participants",
   });
 
+  useEffect(() => {
+    console.log("useEffect triggered"); // Add this line
+    if (user) {
+      console.log(user.id);
+      setLoaded(true);
+    }
+  }, [user]);
+
   const handleSubmit = async (values: z.infer<typeof userSchema>) => {
+    const userId = user ? user.id : "";
     console.log({values});
+    //  Check if user exists before accessing its id
+     console.log(userId);
+     console.log({userId});
+     if (loaded) {
+      const updatedValues = {
+        ...values,
+        userId: userId,
+      };
 
-    await createUser({
-      eventName: values.eventName,
-      budget: Number(values.budget),
-      eventDate: values.eventDate,
-      invitationMessage: values.invitationMessage,
-      participants: values.participants
-    });
+      await createUser({
+        userId: updatedValues.userId,
+        eventName: updatedValues.eventName,
+        budget: Number(updatedValues.budget),
+        eventDate: updatedValues.eventDate,
+        invitationMessage: updatedValues.invitationMessage,
+        participants: updatedValues.participants
+      });
 
-   router.push('/create-event');
+      router.push('/create-event');
+    } else {
+      console.error("User not loaded");
+    }
   };
 
+  // const handleSubmit = async (values: z.infer<typeof userSchema>) => {
+  //   console.log({values}); 
+  //      const userId = user ? user.id : "";
+  //      console.log(userId);
+
+  //   if (userId) {
+  //     console.log(userId);
+  //     try {
+  //       await createUser({
+  //         userId: userId,
+  //         eventName: values.eventName,
+  //         budget: Number(values.budget),
+  //         eventDate: values.eventDate,
+  //         invitationMessage: values.invitationMessage,
+  //         participants: values.participants
+  //       });
+  //       router.push("/create-event");
+  //     } catch (error) {
+  //       console.error("Error creating event", error);
+  //     }
+  //   } else {
+  //     console.error("User not loaded");
+  //   }
+  // };
 
 
   const next = async () => {

@@ -6,6 +6,7 @@ import { connectToDB } from "../validations/mongoose";
 
 interface UserData {
   _id?: string;
+  userId: string;
   eventName: string;
   budget: number; // Assuming budget is a numerical value
   eventDate: Date; // or string if you are using ISO date strings
@@ -26,6 +27,7 @@ export async function createUser(userData: UserData): Promise<void> {
   await connectToDB();
 
   await User.create({
+    userId: userData.userId,
     eventName: userData.eventName,
     budget: userData.budget,
     eventDate: userData.eventDate,
@@ -36,8 +38,8 @@ export async function createUser(userData: UserData): Promise<void> {
 
 
 export async function fetchUser() {
+  await connectToDB();
   try {
-    await connectToDB();
     const users = await User.find({});
     return users;
   }
@@ -51,21 +53,20 @@ export async function fetchUser() {
 //  * @param {string} userId - The ID of the user to fetch.
 //  * @returns The user object if found, or null if not found.
 //  */
-export async function fetchEventById(id: string) {
+export async function fetchEventById(Id: string) {
   await connectToDB(); // Ensure database connection
 
   try {
-    const event = await User.findById(id).exec();
+    const event = await User.findById(Id);
     if (!event) {
       throw new Error('User not found');
     }
     return event;
   } catch (err) {
     console.error("Error while fetching user by ID:", err);
-    throw err; // Rethrow or handle as needed
+    throw err; 
   }
 }
-
 
 
 ///// shuffle function
@@ -125,6 +126,8 @@ export async function drawParticipants(eventId: string) {
   }
 
   const matches = drawParticipantsFunction(eventDetails.participants);
+  
+
 
   // Assuming you want to save the matches to the event or handle them somehow
   try {

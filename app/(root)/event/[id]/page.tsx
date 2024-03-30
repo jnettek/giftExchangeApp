@@ -1,7 +1,6 @@
 // In pages/event/[id]/page.tsx
 import { fetchEventById } from "@/lib/actions/user.action";
 import DetailCard from "@/components/DetailCard";
-// import { currentUser } from "@clerk/nextjs/server";
 import WishListAd from "@/components/WishListAd";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
