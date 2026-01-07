@@ -1,5 +1,3 @@
-
-
 const Introduction = () => {
 
     return (
@@ -12,7 +10,7 @@ const Introduction = () => {
                           </p>
                       </div>
                     </div>
-                  
+
                         <div className="flex p-2 mr-4 mt-2 mb-6 text-black">
                           <div className="flex flex-col justify-center">
                               <h1 className="text-black text-2xl">Participating in a Gift Exchange</h1>
@@ -29,7 +27,7 @@ const Introduction = () => {
                                         Make gifting more personal and less of a guesswork. With our wishlist feature, you can list your preferences and desired items, making it easier for your secret gifter to pick the perfect present.
                                         </p>
                                     </div>
-                                </div> 
+                                </div>
         </>
     )
 }

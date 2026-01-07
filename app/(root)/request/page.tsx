@@ -1,4 +1,4 @@
-import Introduction from "@/components/Introduction";
+import Introduction from "@/components/event/Introduction";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ export default function RequestPage() {
  </h1>
  
  <div className="mt-6 flex w-full max-w-4xl flex-wrap items-stretch justify-around sm:w-full">
-   <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-[#fff7e1]">      
+   <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-cream-light">
    <h1 className="font-bold">COMING SOON ...</h1>
     <p className="text-left pt-4">While we're putting the finishing sparkles on this page, the magic of creating your next gift exchange is ready and waiting!</p>
     <div className="self-end w-full text-right pt-6">
@@ -30,7 +30,7 @@ export default function RequestPage() {
                  </Link>
           </div>
    
-          <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-[#f4a692]">
+          <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-coral-primary">
             <Introduction/>
               </div>
             </div>

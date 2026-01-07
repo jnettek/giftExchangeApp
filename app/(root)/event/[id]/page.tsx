@@ -1,7 +1,6 @@
-// In pages/event/[id]/page.tsx
-import { fetchEventById } from "@/lib/actions/user.action";
-import DetailCard from "@/components/DetailCard";
-import WishListAd from "@/components/WishListAd";
+import { fetchEventById } from "@/lib/actions/event.action";
+import DetailCard from "@/components/event/DetailCard";
+import WishListAd from "@/components/wishlist/WishListAd";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 
@@ -31,7 +30,7 @@ const EventDetailPage = async ({params}: {params: {id: string}}) => {
   🎉 Start Gift Exchange
 </h1>
 <div className="mt-6 flex w-full max-w-4xl flex-wrap items-stretch justify-around sm:w-full">
-  <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-[#fff7e1]">  
+  <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-cream-light">
     <div className="flex p-2 mr-4 mt-2 mb-6 text-black">
      <h1 className="text-black text-2xl">Inside Scoop 💖🎈</h1>
      </div>
@@ -65,7 +64,7 @@ const EventDetailPage = async ({params}: {params: {id: string}}) => {
 
 
   {/* SECOND HALF PAGE */}
-           <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-[#f4a692]">
+           <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-coral-primary">
             <WishListAd />
              </div>
            </div>

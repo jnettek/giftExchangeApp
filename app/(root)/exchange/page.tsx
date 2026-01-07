@@ -1,7 +1,7 @@
 "use client"
 import React, {useEffect, useState} from "react";
 import * as z from "zod";
-import Introduction from "@/components/Introduction";
+import Introduction from "@/components/event/Introduction";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { userSchema } from "@/lib/validations/user";
@@ -16,9 +16,9 @@ import { PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from 'date-fns';
 import Link from "next/link";
-import { createUser } from "@/lib/actions/user.action";
+import { createEvent } from "@/lib/actions/event.action";
 import { useRouter } from "next/navigation";
-import { set } from "mongoose";
+// import Confetti from 'react-canvas-confetti';
 
 const steps = [
   {
@@ -40,8 +40,7 @@ const exchangePage = () => {
   const router = useRouter();
   const [previousStep, setPreviousStep] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
-
-
+  
 
 
   const form = useForm<z.infer<typeof userSchema>>({
@@ -82,7 +81,7 @@ const exchangePage = () => {
         userId: userId,
       };
 
-      await createUser({
+      await createEvent({
         userId: updatedValues.userId,
         eventName: updatedValues.eventName,
         budget: Number(updatedValues.budget),
@@ -90,7 +89,6 @@ const exchangePage = () => {
         invitationMessage: updatedValues.invitationMessage,
         participants: updatedValues.participants
       });
-
       router.push('/create-event');
     } else {
       console.error("User not loaded");
@@ -98,14 +96,14 @@ const exchangePage = () => {
   };
 
   // const handleSubmit = async (values: z.infer<typeof userSchema>) => {
-  //   console.log({values}); 
+  //   console.log({values});
   //      const userId = user ? user.id : "";
   //      console.log(userId);
 
   //   if (userId) {
   //     console.log(userId);
   //     try {
-  //       await createUser({
+  //       await createEvent({
   //         userId: userId,
   //         eventName: values.eventName,
   //         budget: Number(values.budget),
@@ -163,7 +161,7 @@ const exchangePage = () => {
                🎉 Start Gift Exchange
              </h1>
              <div className="mt-6 flex w-full max-w-4xl flex-wrap items-stretch justify-around sm:w-full">
-               <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-[#fff7e1]">  
+               <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-cream-light">
                  <div className="flex p-2 mr-4 mt-2 mb-6 text-black">
                   <h1 className="text-black text-2xl">First, set up details about gifts</h1>
                   </div>
@@ -320,7 +318,7 @@ const exchangePage = () => {
                   <Button
                       // type="submit"
                       onClick={prev} disabled={currentStep === 0}
-                      className="p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12"
+                      className="p-4 mr-4 mt-2 mb-6 text-black bg-coral-primary rounded-full w-72 h-12"
                       variant="default" // or any other variant you see fit
                       size="sm" // or "sm", "lg", etc., according to your needs
                       >
@@ -330,7 +328,7 @@ const exchangePage = () => {
                       type={currentStep < steps.length -1 ? "button" : "submit"}
                       // onClick={currentStep < steps.length - 1 ? next : () => form.handleSubmit(handleSubmit)()}
                       onClick={currentStep < steps.length - 1 ? next : undefined}
-                      className="p-4 mr-4 mt-2 mb-6 text-black bg-[#f4a692] rounded-full w-72 h-12"
+                      className="p-4 mr-4 mt-2 mb-6 text-black bg-coral-primary rounded-full w-72 h-12"
                       variant="default" // or any other variant you see fit
                       size="sm" // or "sm", "lg", etc., according to your needs
                       >
@@ -352,7 +350,7 @@ const exchangePage = () => {
 
 
                {/* SECOND HALF PAGE */}
-                        <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-[#f4a692]">
+                        <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-coral-primary">
                          <Introduction />
                           </div>
                         </div>

@@ -1,76 +1,228 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Brand Colors - Warm & Festive */
+    --coral-primary: 13 82% 77%;        /* #F4A79D - Main brand color */
+    --coral-secondary: 13 72% 72%;      /* #E89689 - Secondary coral */
+    --coral-hover: 13 62% 67%;          /* #D98578 - Hover state */
+    
+    --cream-light: 40 100% 97%;         /* #FFF4E6 - Light cream background */
+    --cream-medium: 40 100% 90%;        /* #FFE8CC - Medium cream */
+    
+    /* Base Colors */
+    --background: 0 0% 100%;            /* White */
+    --foreground: 0 0% 10%;             /* Near black for text */
 
+    /* Card Colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 10%;
  
+    /* Popover Colors */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 10%;
  
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Coral theme */
+    --primary: 13 82% 77%;              /* Coral primary */
+    --primary-foreground: 0 0% 10%;     /* Dark text on coral */
  
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Cream theme */
+    --secondary: 40 100% 97%;           /* Cream light */
+    --secondary-foreground: 0 0% 10%;
  
+    /* Muted - Subtle backgrounds */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
  
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Coral secondary */
+    --accent: 13 72% 72%;
+    --accent-foreground: 0 0% 10%;
  
+    /* Destructive - Error states */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
+    /* Borders & Inputs */
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 13 82% 77%;                 /* Coral focus ring */
  
-    --radius: 0.5rem;
+    /* Border Radius */
+    --radius: 0.75rem;                  /* Slightly more rounded */
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
   }
  
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode - Inverted warm theme */
+    --background: 0 0% 10%;
+    --foreground: 40 100% 97%;
  
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 15%;
+    --card-foreground: 40 100% 97%;
  
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 15%;
+    --popover-foreground: 40 100% 97%;
  
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 13 82% 77%;              /* Keep coral bright in dark mode */
+    --primary-foreground: 0 0% 10%;
  
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 40 100% 97%;
  
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 0 0% 20%;
     --muted-foreground: 215 20.2% 65.1%;
  
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 13 72% 72%;
+    --accent-foreground: 0 0% 10%;
  
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
  
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 13 82% 77%;
   }
 }
- 
+
+/* Typography System */
 @layer base {
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-4xl sm:text-5xl lg:text-6xl;
+    line-height: 1.1;
+  }
+  
+  h2 {
+    @apply text-3xl sm:text-4xl;
+    line-height: 1.2;
+  }
+  
+  h3 {
+    @apply text-2xl sm:text-3xl;
+    line-height: 1.3;
+  }
+  
+  h4 {
+    @apply text-xl sm:text-2xl;
+    line-height: 1.4;
+  }
+  
+  /* Body text */
+  p {
+    @apply text-base leading-relaxed;
+  }
+  
+  .text-large {
+    @apply text-lg leading-relaxed;
+  }
+  
+  .text-small {
+    @apply text-sm leading-normal;
+  }
+  
+  /* Links */
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* Custom Utility Classes */
+@layer components {
+  /* Coral Button Variants */
+  .btn-coral {
+    @apply bg-[#F4A79D] hover:bg-[#e89689] text-gray-900 font-semibold;
+  }
+  
+  .btn-coral-secondary {
+    @apply bg-[#E89689] hover:bg-[#d98578] text-gray-900 font-semibold;
+  }
+  
+  /* Cream Backgrounds */
+  .bg-cream-light {
+    @apply bg-[#FFF4E6];
+  }
+  
+  .bg-cream-medium {
+    @apply bg-[#FFE8CC];
+  }
+  
+  /* Card Styles */
+  .card-coral {
+    @apply border-2 border-gray-100 hover:border-[#F4A79D] transition-colors;
+  }
+  
+  /* Gradient Backgrounds */
+  .gradient-coral {
+    @apply bg-gradient-to-br from-[#F4A79D] to-[#e89689];
+  }
+  
+  .gradient-cream {
+    @apply bg-gradient-to-br from-[#FFF4E6] to-[#FFE8CC];
+  }
+  
+  /* Icon Backgrounds */
+  .icon-bg-cream {
+    @apply bg-[#FFF4E6] rounded-full flex items-center justify-center;
+  }
+  
+  .icon-bg-coral {
+    @apply bg-[#F4A79D] rounded-full flex items-center justify-center;
+  }
+  
+  /* Number Badges */
+  .badge-number {
+    @apply bg-[#F4A79D] rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center font-bold text-sm sm:text-base flex-shrink-0;
+  }
+  
+  /* Glass Effect */
+  .glass {
+    @apply bg-white/95 backdrop-blur-sm;
+  }
+  
+  /* Shadow Utilities */
+  .shadow-soft {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -1px rgb(0 0 0 / 0.03);
+  }
+  
+  .shadow-card {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -2px rgb(0 0 0 / 0.03);
+  }
+}
+
+/* Animation Utilities */
+@layer utilities {
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  /* Hover scale effect */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  /* Focus ring - coral themed */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-[#F4A79D] focus:ring-offset-2;
   }
 }

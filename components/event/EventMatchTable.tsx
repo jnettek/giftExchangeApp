@@ -1,18 +1,11 @@
 import React from 'react';
-
-export interface Match {
-  params: {
-    id?: string;
-  };
-  giver: any;
-  receiver: any;
-}
+import { Match } from '@/lib/types';
 
 interface Props {
   matches: Match[];
 }
 
-const EventMatch: React.FC<Props> = ({ matches }) => {
+const EventMatchTable: React.FC<Props> = ({ matches }) => {
   return (
     <table className="mx-auto text-center border-collapse">
       <thead>
@@ -37,4 +30,4 @@ const EventMatch: React.FC<Props> = ({ matches }) => {
   );
 }
 
-export default EventMatch;
+export default EventMatchTable;

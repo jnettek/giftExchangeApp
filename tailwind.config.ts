@@ -52,6 +52,11 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        'coral-primary': "hsl(var(--coral-primary))",
+        'coral-secondary': "hsl(var(--coral-secondary))",
+        'coral-hover': "hsl(var(--coral-hover))",
+        'cream-light': "hsl(var(--cream-light))",
+        'cream-medium': "hsl(var(--cream-medium))",
       },
       borderRadius: {
         lg: "var(--radius)",

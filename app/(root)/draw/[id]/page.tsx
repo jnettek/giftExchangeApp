@@ -1,6 +1,6 @@
-import EventMatch from "@/components/EventDetail";
-import WishListAd from "@/components/WishListAd";
-import { drawParticipants } from "@/lib/actions/user.action";
+import EventMatchTable from "@/components/event/EventMatchTable";
+import WishListAd from "@/components/wishlist/WishListAd";
+import { drawParticipants } from "@/lib/actions/event.action";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -22,7 +22,7 @@ const page = async ({ params }: { params: { id: string } }) => {
       🎉 Start Gift Exchange
     </h1>
     <div className="mt-6 flex w-full max-w-4xl flex-wrap items-stretch justify-around sm:w-full">
-      <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-[#fff7e1]">  
+      <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4 bg-cream-light">
         <div className="flex p-2 mr-4 mt-2 mb-6 text-black">
          <h1 className="text-black text-2xl">Let's Connect the Dots!</h1>
          </div>
@@ -33,7 +33,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           {matches?.length === 0 ? (
             <p className='no-result'>Hmmm.... Let's try again</p>
           ) : (
-            <EventMatch matches={matches} />
+            <EventMatchTable matches={matches} />
           )}
           </div>
 
@@ -49,7 +49,7 @@ const page = async ({ params }: { params: { id: string } }) => {
     
     
       {/* SECOND HALF PAGE */}
-               <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-[#f4a692]">
+               <div className="flex flex-col w-full md:w-1/2 p-4 text-left bg-coral-primary">
                 <WishListAd />
                  </div>
                </div>

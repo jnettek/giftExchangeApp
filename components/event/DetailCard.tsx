@@ -1,29 +1,23 @@
-import Link from 'next/link';
 import React from 'react';
-
-interface Participant {
-  name: string;
-  email: string;
-}
+import { Participant } from '@/lib/types';
 
 interface Props {
   id: string;
   eventName: string;
   budget: number;
-  eventDate: string | Date; // Accept both Date object or ISO date string
+  eventDate: string | Date;
   invitationMessage: string;
   participants: Participant[];
 }
 
-const DetailCard: React.FC<Props> = ({ 
-  id, 
-  eventName, 
-  budget, 
-  eventDate, 
-  invitationMessage, 
-  participants 
+const DetailCard: React.FC<Props> = ({
+  id,
+  eventName,
+  budget,
+  eventDate,
+  invitationMessage,
+  participants
 }) => {
-  // Format date
   const formattedDate = new Date(eventDate).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -31,7 +25,7 @@ const DetailCard: React.FC<Props> = ({
   });
 
   return (
-    <div className="w-full bg-[#f4a692] rounded-lg p-4">
+    <div className="w-full bg-coral-primary rounded-lg p-4">
     <h1 className="text-left text-xl font-semibold">{eventName}</h1>
     <p className="text-left font-light">Budget: ${budget}</p>
     <p className="text-left font-light">Date: {formattedDate}</p>
@@ -43,7 +37,7 @@ const DetailCard: React.FC<Props> = ({
       ))}
     </ul>
   </div>
-  
+
   );
 };
 
